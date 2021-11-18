@@ -9,16 +9,26 @@ class User extends Component
 {
     public $name, $email, $user_id;
     public $updateMode = false;
+    public $perPage = 12;
+    protected $listeners = [
+        'load-more' => 'loadMore'
+    ];
 
     public function render()
     {
-        $users = UserModel::all();
+        $users = UserModel::latest()->paginate($this->perPage);
 
         $data = [
               'users' => $users
         ];
         return view('livewire.user',$data);
     }
+
+    public function loadMore()
+    {
+        $this->perPage = $this->perPage + 5;
+    }
+
 
     private function resetInputFields()
     {

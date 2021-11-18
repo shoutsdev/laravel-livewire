@@ -19,7 +19,7 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">
-                    <h2>Laravel Livewire Crud</h2>
+                    <h2>Laravel Livewire Crud with On Scroll Paginate/Load More</h2>
                 </div>
                 <div class="card-body">
                     @if (session()->has('message'))
@@ -39,6 +39,11 @@
     window.livewire.on('userStore', () => {
         $('#exampleModal').modal('hide');
     });
+    window.onscroll = function(ev) {
+        if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+            window.livewire.emit('load-more');
+        }
+    };
 </script>
 </body>
 </html>
